@@ -1,0 +1,35 @@
+id: WU-001
+title: Add modulo operation to calculator
+lane: Core
+type: feature
+status: ready
+priority: P2
+created: 2026-01-19
+description: |
+  Add a modulo operation to the calculator package.
+  
+  Context: Users need remainder calculation for various use cases.
+  Problem: No modulo function exists in the calculator package.
+  Solution: Add Modulo() function with proper error handling.
+
+acceptance:
+  - Modulo(a, b) returns the remainder of a divided by b
+  - Returns ErrDivisionByZero when b is zero
+  - Unit tests cover positive, negative, and zero cases
+  - Test coverage >= 80%
+
+code_paths:
+  - calculator/calculator.go
+
+tests:
+  unit:
+    - calculator/calculator_test.go
+  manual: []
+  e2e: []
+
+artifacts:
+  - .beacon/stamps/WU-001.done
+
+notes: |
+  Example WU to demonstrate LumenFlow workflow.
+  Follow TDD: write failing test first, then implement.
