@@ -1,0 +1,53 @@
+# LumenFlow Configuration for Go Projects
+# Documentation: https://lumenflow.dev/reference/config
+
+version: "1.0"
+
+# Project identification
+project:
+  name: "example-go-project"
+  description: "Example Go project demonstrating LumenFlow workflow"
+
+# Delivery lanes configuration
+lanes:
+  - name: Core
+    scope: "**/*.go"
+  - name: Tests
+    scope: "**/*_test.go"
+  - name: Documentation
+    scope: "docs/**"
+
+# Quality gates configuration
+gates:
+  preset: "go"
+  
+  # Format check (gofmt)
+  format:
+    enabled: true
+    command: "gofmt -l . | grep -v '^$' && exit 1 || true"
+    fix_command: "gofmt -w ."
+  
+  # Linting (golangci-lint)
+  lint:
+    enabled: true
+    command: "golangci-lint run"
+    fix_command: "golangci-lint run --fix"
+  
+  # Type checking (go vet)
+  typecheck:
+    enabled: true
+    command: "go vet ./..."
+  
+  # Tests (go test)
+  test:
+    enabled: true
+    command: "go test -v -cover ./..."
+    coverage:
+      enabled: true
+      threshold: 80
+
+# WU (Work Unit) settings
+wu:
+  spec_dir: "docs/04-operations/tasks/wu"
+  status_file: "docs/04-operations/tasks/status.md"
+  stamps_dir: ".beacon/stamps"
